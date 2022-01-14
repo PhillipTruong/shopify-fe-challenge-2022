@@ -12,9 +12,11 @@ import {
 
 const App = () => {
   const [nasaImages, setNasaImages] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     const getImages = async () => {
+      setIsLoading(true)
       await axios
         .get(
           `https://api.nasa.gov/planetary/apod/`,
@@ -34,8 +36,8 @@ const App = () => {
         .catch((err) => { //TODO: Handle err
           console.error(err)
         });
+        setIsLoading(false)
     }
-
     getImages()
   }, [])
 
@@ -43,7 +45,7 @@ const App = () => {
     <Page title='Spacestagram' subtitle="Image-sharing from the final frontier - Brought to you by NASA's Astronomy Photo of the Day (APOD) API">
       <Layout>
         <Layout.Section>
-          {nasaImages.length === 0 ? ( //TODO: might need to add a loading variable, what if there is an error and the lenth is always 0...
+          {isLoading ? (
             <EmptyState
               heading="Loading images from NASA"
               image="https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png"
