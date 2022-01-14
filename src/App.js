@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 
-import ImageCard from './components/ImageCard';
+// import ImageCard from './components/ImageCard';
+import SpaceCard from './components/SpaceCard';
 
 import {
   Page,
@@ -41,12 +42,16 @@ const App = () => {
     <Page title='Spacestagram' subtitle="Image-sharing from the final frontier - Brought to you by NASA's Astronomy Photo of the Day (APOD) API ">
       <Layout>
         <Layout.Section>
-          {nasaImages.map((img, id) => {
-            return (img.media_type !== 'video') ?
-              (<ImageCard key={id} id={id} title={img.title} date={img.date} img={img.hdurl} explanation={img.explanation} />)
-              :
-              (<ImageCard key={id} id={id} title={img.title} date={img.date} img={img.thumbnail_url} explanation={img.explanation} />)
-          })}
+          {nasaImages.map((img, id) =>
+            <SpaceCard
+              key={id}
+              id={id}
+              title={img.title}
+              date={img.date}
+              img={img.media_type !== 'video' ? img.hdurl : img.thumbnail_url}
+              explanation={img.explanation}
+            />
+          )}
         </Layout.Section>
       </Layout>
     </Page>
