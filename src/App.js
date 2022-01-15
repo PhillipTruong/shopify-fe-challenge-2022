@@ -22,10 +22,10 @@ const nasaApiKey = process.env.REACT_APP_NASA_API_KEY
 
 const App = () => {
 
-  let today = new Date(Date.now())
+  const today = new Date(Date.now())
 
-  let currentDate = new Date()
-  let previous7DaysDate = new Date(currentDate.setDate(currentDate.getDate() - 7))
+  const currentDate = new Date()
+  const previous7DaysDate = new Date(currentDate.setDate(currentDate.getDate() - 7))
 
   const [nasaImages, setNasaImages] = useState([])
   const [isLoading, setIsLoading] = useState(false)
@@ -40,32 +40,33 @@ const App = () => {
     [],
   )
 
-  useEffect(() => {
-    const getImages = async () => {
-      setIsLoading(true)
-      await axios
-        .get(
-          nasaApiUrl,
-          {
-            params: {
-              api_key: nasaApiKey,
-              start_date: formatNasaApiDate(selectedDates.start || previous7DaysDate),
-              end_date: formatNasaApiDate(selectedDates.end || today),
-              thumbs: true,
-              hd: true,
-            }
+  const getImages = async () => {
+    setIsLoading(true)
+    await axios
+      .get(
+        nasaApiUrl,
+        {
+          params: {
+            api_key: nasaApiKey,
+            start_date: formatNasaApiDate(selectedDates.start || previous7DaysDate),
+            end_date: formatNasaApiDate(selectedDates.end || today),
+            thumbs: true,
+            hd: true,
           }
-        )
-        .then((res) => {
-          console.log(res.data)
-          let sortedResData = res.data.sort((b, a) => ((a.date < b.date) ? -1 : ((a.date > b.date) ? 1 : 0)));
-          setNasaImages(sortedResData)
-        })
-        .catch((err) => { //TODO: Handle err
-          console.error(err)
-        });
-      setIsLoading(false)
-    }
+        }
+      )
+      .then((res) => {
+        console.log(res.data)
+        let sortedResData = res.data.sort((b, a) => ((a.date < b.date) ? -1 : ((a.date > b.date) ? 1 : 0)));
+        setNasaImages(sortedResData)
+      })
+      .catch((err) => { //TODO: Handle err
+        console.log(err)
+      });
+    setIsLoading(false)
+  }
+
+  useEffect(() => {
     getImages()
   }, [selectedDates])
 
@@ -103,16 +104,16 @@ const App = () => {
               </Card>
             </StickyLayoutSection>
             <Layout.Section>
-                {nasaImages.map((img, id) =>
-                  <ImageCard
-                    key={id}
-                    id={id}
-                    title={img.title}
-                    date={img.date}
-                    img={img.media_type !== 'video' ? img.hdurl : img.thumbnail_url}
-                    explanation={img.explanation}
-                  />
-                )}
+              {nasaImages.map((img, id) =>
+                <ImageCard
+                  key={id}
+                  id={id}
+                  title={img.title}
+                  date={img.date}
+                  img={img.media_type !== 'video' ? img.hdurl : img.thumbnail_url}
+                  explanation={img.explanation}
+                />
+              )}
             </Layout.Section>
           </>
         )
