@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios';
+import axios from 'axios'
 
-// import ImageCard from './components/ImageCard';
-import SpaceCard from './components/SpaceCard';
+import ImageCard from './components/ImageCard'
 
 import {
   Page,
   Layout,
   EmptyState,
-} from '@shopify/polaris';
+} from '@shopify/polaris'
 
 const App = () => {
   const [nasaImages, setNasaImages] = useState([])
@@ -50,11 +49,11 @@ const App = () => {
               heading="Loading images from NASA"
               image="https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png"
             >
-              <p>Sit tight while we assess.</p>
+              <p>Sit tight while we assess</p>
             </EmptyState>
           ) : (
             nasaImages.map((img, id) =>
-              <SpaceCard
+              <ImageCard
                 key={id}
                 id={id}
                 title={img.title}

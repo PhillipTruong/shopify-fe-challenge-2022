@@ -1,17 +1,25 @@
+// DEPRECATED
+
 import {
     MediaCard,
+    Card
 } from '@shopify/polaris';
 
-const SpaceCard = ({ id, title, date, img, explanation }) => {
+const SpaceMediaCard = ({ id, title, date, img, explanation }) => {
     return (
+        <Card>
         <MediaCard
             title={title + ' | ' + date}
             description={explanation}
             portrait={true}
-            primaryAction={{
-                content: 'Like',
-                onAction: () => { alert('Liked ' + title) }, //TODO: Add like onAction
-            }}>
+            subdued
+            primaryAction={
+                {
+                    content: 'Like',
+                    onAction: () => {},
+                }
+            }
+            >
             <img
                 alt={title}
                 width="100%"
@@ -21,9 +29,10 @@ const SpaceCard = ({ id, title, date, img, explanation }) => {
                     objectPosition: 'center',
                 }}
                 src={img}
-            />
+                />
         </MediaCard>
+        </Card>
     )
 }
 
-export default SpaceCard
+export default SpaceMediaCard
