@@ -1,20 +1,45 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import axios from 'axios'
 
 import ImageCard from './components/ImageCard/ImageCard'
+import StickyLayoutSection from './components/StickyLayoutSection/StickyLayoutSection'
+
+import { formatNasaApiDate } from './util/dateFormatter'
 
 import {
   Page,
   Layout,
   EmptyState,
+  DatePicker,
+  Card,
+  Scrollable,
+  Spinner,
+  DisplayText,
+  Stack,
 } from '@shopify/polaris'
 
 const nasaApiUrl = 'https://api.nasa.gov/planetary/apod/'
 const nasaApiKey = process.env.REACT_APP_NASA_API_KEY
 
 const App = () => {
+
+  let today = new Date(Date.now())
+
+  let currentDate = new Date()
+  let previous7DaysDate = new Date(currentDate.setDate(currentDate.getDate() - 7))
+
   const [nasaImages, setNasaImages] = useState([])
   const [isLoading, setIsLoading] = useState(false)
+  const [{ month, year }, setDate] = useState({ month: today.getMonth(), year: today.getFullYear() })
+  const [selectedDates, setSelectedDates] = useState({
+    start: previous7DaysDate,
+    end: today,
+  })
+
+  const handleMonthChange = useCallback(
+    (month, year) => setDate({ month, year }),
+    [],
+  )
 
   useEffect(() => {
     const getImages = async () => {
@@ -25,15 +50,17 @@ const App = () => {
           {
             params: {
               api_key: nasaApiKey,
-              count: 10,
+              start_date: formatNasaApiDate(selectedDates.start || previous7DaysDate),
+              end_date: formatNasaApiDate(selectedDates.end || today),
               thumbs: true,
               hd: true,
             }
           }
         )
         .then((res) => {
-          console.log(res.data) //TODO: Handle res
-          setNasaImages(res.data)
+          console.log(res.data)
+          let sortedResData = res.data.sort((b, a) => ((a.date < b.date) ? -1 : ((a.date > b.date) ? 1 : 0)));
+          setNasaImages(sortedResData)
         })
         .catch((err) => { //TODO: Handle err
           console.error(err)
@@ -41,38 +68,58 @@ const App = () => {
       setIsLoading(false)
     }
     getImages()
-  }, [])
+  }, [selectedDates])
 
   return (
     <Page
       title='Spacestagram'
       subtitle="Image-sharing from the final frontier - Brought to you by NASA's Astronomy Photo of the Day (APOD) API"
-      narrowWidth={true}
       divider={true}
     >
       <Layout>
-        <Layout.Section>
-          {isLoading ? (
+        {isLoading ? (
+          <Layout.Section>
             <EmptyState
-              heading="Loading images from NASA"
-              image="https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png"
             >
-              <p>Sit tight while we assess</p>
+              <Stack vertical spacing='loose'>
+                <DisplayText size='medium'>Loading images from NASA</DisplayText>
+                <Spinner size='large'></Spinner>
+                <p>Sit tight while we assess</p>
+              </Stack>
             </EmptyState>
-          ) : (
-            nasaImages.map((img, id) =>
-              <ImageCard
-                key={id}
-                id={id}
-                title={img.title}
-                date={img.date}
-                img={img.media_type !== 'video' ? img.hdurl : img.thumbnail_url}
-                explanation={img.explanation}
-              />
-            )
-          )
-          }
-        </Layout.Section>
+          </Layout.Section>
+        ) : (
+          <>
+            <StickyLayoutSection>
+              <Card sectioned subdued>
+                <DatePicker
+                  month={month}
+                  year={year}
+                  onChange={setSelectedDates}
+                  onMonthChange={handleMonthChange}
+                  selected={selectedDates}
+                  allowRange
+                  disableDatesAfter={today}
+                />
+              </Card>
+            </StickyLayoutSection>
+            <Layout.Section>
+              <Scrollable>
+                {nasaImages.map((img, id) =>
+                  <ImageCard
+                    key={id}
+                    id={id}
+                    title={img.title}
+                    date={img.date}
+                    img={img.media_type !== 'video' ? img.hdurl : img.thumbnail_url}
+                    explanation={img.explanation}
+                  />
+                )}
+              </Scrollable>
+            </Layout.Section>
+          </>
+        )
+        }
       </Layout>
     </Page>
   );
