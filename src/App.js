@@ -12,7 +12,6 @@ import {
   EmptyState,
   DatePicker,
   Card,
-  Scrollable,
   Spinner,
   DisplayText,
   Stack,
@@ -81,7 +80,7 @@ const App = () => {
           <Layout.Section>
             <EmptyState
             >
-              <Stack vertical spacing='loose'>
+              <Stack vertical spacing='extraLoose'>
                 <DisplayText size='medium'>Loading images from NASA</DisplayText>
                 <Spinner size='large'></Spinner>
                 <p>Sit tight while we assess</p>
@@ -104,7 +103,6 @@ const App = () => {
               </Card>
             </StickyLayoutSection>
             <Layout.Section>
-              <Scrollable>
                 {nasaImages.map((img, id) =>
                   <ImageCard
                     key={id}
@@ -115,7 +113,6 @@ const App = () => {
                     explanation={img.explanation}
                   />
                 )}
-              </Scrollable>
             </Layout.Section>
           </>
         )
