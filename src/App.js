@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
-import ImageCard from './components/ImageCard'
+import ImageCard from './components/ImageCard/ImageCard'
 
 import {
   Page,
   Layout,
   EmptyState,
 } from '@shopify/polaris'
+
+const nasaApiUrl = 'https://api.nasa.gov/planetary/apod/'
+const nasaApiKey = process.env.REACT_APP_NASA_API_KEY
 
 const App = () => {
   const [nasaImages, setNasaImages] = useState([])
@@ -18,10 +21,10 @@ const App = () => {
       setIsLoading(true)
       await axios
         .get(
-          `https://api.nasa.gov/planetary/apod/`,
+          nasaApiUrl,
           {
             params: {
-              api_key: process.env.REACT_APP_NASA_API_KEY,
+              api_key: nasaApiKey,
               count: 10,
               thumbs: true,
               hd: true,
@@ -35,13 +38,18 @@ const App = () => {
         .catch((err) => { //TODO: Handle err
           console.error(err)
         });
-        setIsLoading(false)
+      setIsLoading(false)
     }
     getImages()
   }, [])
 
   return (
-    <Page title='Spacestagram' subtitle="Image-sharing from the final frontier - Brought to you by NASA's Astronomy Photo of the Day (APOD) API">
+    <Page
+      title='Spacestagram'
+      subtitle="Image-sharing from the final frontier - Brought to you by NASA's Astronomy Photo of the Day (APOD) API"
+      narrowWidth={true}
+      divider={true}
+    >
       <Layout>
         <Layout.Section>
           {isLoading ? (
