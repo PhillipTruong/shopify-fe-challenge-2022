@@ -40,33 +40,31 @@ const App = () => {
     [],
   )
 
-  const getImages = async () => {
-    setIsLoading(true)
-    await axios
-      .get(
-        nasaApiUrl,
-        {
-          params: {
-            api_key: nasaApiKey,
-            start_date: formatNasaApiDate(selectedDates.start || previous7DaysDate),
-            end_date: formatNasaApiDate(selectedDates.end || today),
-            thumbs: true,
-            hd: true,
-          }
-        }
-      )
-      .then((res) => {
-        console.log(res.data)
-        let sortedResData = res.data.sort((b, a) => ((a.date < b.date) ? -1 : ((a.date > b.date) ? 1 : 0)));
-        setNasaImages(sortedResData)
-      })
-      .catch((err) => { //TODO: Handle err
-        console.log(err)
-      });
-    setIsLoading(false)
-  }
-
   useEffect(() => {
+    const getImages = async () => {
+      setIsLoading(true)
+      await axios
+        .get(
+          nasaApiUrl,
+          {
+            params: {
+              api_key: nasaApiKey,
+              start_date: formatNasaApiDate(selectedDates.start || previous7DaysDate),
+              end_date: formatNasaApiDate(selectedDates.end || today),
+              thumbs: true,
+              hd: true,
+            }
+          }
+        )
+        .then((res) => {
+          console.log(res.data)
+          let sortedResData = res.data.sort((b, a) => ((a.date < b.date) ? -1 : ((a.date > b.date) ? 1 : 0)));
+          setNasaImages(sortedResData)
+        })
+        .catch((err) => { //TODO: Handle err
+          console.log(err)
+        })
+      setIsLoading(false)}
     getImages()
   }, [selectedDates])
 
