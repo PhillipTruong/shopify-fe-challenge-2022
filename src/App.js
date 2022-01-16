@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import axios from 'axios'
 
 import ImageCard from './components/ImageCard/ImageCard'
@@ -22,12 +22,9 @@ const nasaApiKey = process.env.REACT_APP_NASA_API_KEY
 
 const App = () => {
 
-  // const today = new Date(Date.now())
-  // const previous7DaysDate = new Date(currentDate.setDate(currentDate.getDate() - 7))
-
-  const today = useMemo(() => {return new Date(Date.now())}, []);
-  const currentDate = useMemo(() => {return new Date()}, []);
-  const previous7DaysDate = useMemo(() => {return new Date(currentDate.setDate(currentDate.getDate() - 7))}, [currentDate]) 
+  const today = new Date(Date.now())
+  const currentDate =  new Date()
+  const previous7DaysDate = new Date(currentDate.setDate(currentDate.getDate() - 7))
 
   const [nasaImages, setNasaImages] = useState([])
   const [isLoading, setIsLoading] = useState(false)
@@ -51,8 +48,8 @@ const App = () => {
           {
             params: {
               api_key: nasaApiKey,
-              start_date: formatNasaApiDate(selectedDates.start || previous7DaysDate),
-              end_date: formatNasaApiDate(selectedDates.end || today),
+              start_date: formatNasaApiDate(selectedDates.start),
+              end_date: formatNasaApiDate(selectedDates.end),
               thumbs: true,
               hd: true,
             }
@@ -68,7 +65,7 @@ const App = () => {
         })
       setIsLoading(false)}
     getImages()
-  }, [selectedDates, previous7DaysDate, today])
+  }, [selectedDates])
 
   return (
     <Page
