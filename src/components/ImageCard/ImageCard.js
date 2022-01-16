@@ -5,13 +5,14 @@ import {
     Heading,
     Subheading,
     TextContainer,
-    Button,
 } from '@shopify/polaris';
 
 import {
     CardContent,
     Image
 } from './ImageCard.styled'
+
+import LikeButton from '../LikeButton/LikeButton';
 
 const ImageCard = ({ id, title, date, img, explanation }) => {
     const [isLiked, setIsLiked] = useState(false)
@@ -30,9 +31,7 @@ const ImageCard = ({ id, title, date, img, explanation }) => {
                     <Heading>{title}</Heading>
                     <Subheading>{date}</Subheading>
                     <p>{explanation}</p>
-                    <Button pressed={isLiked} onClick={handleLike}>
-                        Like
-                    </Button>
+                    <LikeButton pressed={isLiked} onClick={handleLike} />
                 </TextContainer>
             </CardContent>
         </Card>
