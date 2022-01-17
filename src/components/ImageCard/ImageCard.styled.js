@@ -1,7 +1,7 @@
-import styled from "styled-components"
+import styled from 'styled-components'
 
 import {
-    Image as Img,
+  Image as Img
 } from '@shopify/polaris'
 
 export const CardContent = styled.div`

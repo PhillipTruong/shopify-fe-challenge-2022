@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const Button = styled.button`
     font-size: 2em;
@@ -15,4 +15,4 @@ export const Button = styled.button`
     :hover{
         background-color: #F3F4F6;;
     }
-`;
+`

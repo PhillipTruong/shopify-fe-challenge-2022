@@ -14,16 +14,15 @@ import {
   Card,
   Spinner,
   DisplayText,
-  Stack,
+  Stack
 } from '@shopify/polaris'
 
 const nasaApiUrl = 'https://api.nasa.gov/planetary/apod/'
 const nasaApiKey = process.env.REACT_APP_NASA_API_KEY
 
 const App = () => {
-
   const today = new Date(Date.now())
-  const currentDate =  new Date()
+  const currentDate = new Date()
   const previous7DaysDate = new Date(currentDate.setDate(currentDate.getDate() - 7))
 
   const [nasaImages, setNasaImages] = useState([])
@@ -31,12 +30,12 @@ const App = () => {
   const [{ month, year }, setDate] = useState({ month: today.getMonth(), year: today.getFullYear() })
   const [selectedDates, setSelectedDates] = useState({
     start: previous7DaysDate,
-    end: today,
+    end: today
   })
 
   const handleMonthChange = useCallback(
     (month, year) => setDate({ month, year }),
-    [],
+    []
   )
 
   useEffect(() => {
@@ -51,19 +50,20 @@ const App = () => {
               start_date: formatNasaApiDate(selectedDates.start),
               end_date: formatNasaApiDate(selectedDates.end),
               thumbs: true,
-              hd: true,
+              hd: true
             }
           }
         )
         .then((res) => {
           console.log(res.data)
-          let sortedResData = res.data.sort((b, a) => ((a.date < b.date) ? -1 : ((a.date > b.date) ? 1 : 0)));
+          const sortedResData = res.data.sort((b, a) => ((a.date < b.date) ? -1 : ((a.date > b.date) ? 1 : 0)))
           setNasaImages(sortedResData)
         })
-        .catch((err) => { //TODO: Handle err
+        .catch((err) => { // TODO: Handle err
           console.log(err)
         })
-      setIsLoading(false)}
+      setIsLoading(false)
+    }
     getImages()
   }, [selectedDates])
 
@@ -74,50 +74,54 @@ const App = () => {
       divider={true}
     >
       <Layout>
-        {isLoading ? (
-          <Layout.Section>
-            <EmptyState
-            >
-              <Stack vertical spacing='extraLoose'>
-                <DisplayText size='medium'>Loading images from NASA</DisplayText>
-                <Spinner size='large'></Spinner>
-                <p>Sit tight while we assess</p>
-              </Stack>
-            </EmptyState>
-          </Layout.Section>
-        ) : (
-          <>
-            <StickyLayoutSection>
-              <Card sectioned subdued>
-                <DatePicker
-                  month={month}
-                  year={year}
-                  onChange={setSelectedDates}
-                  onMonthChange={handleMonthChange}
-                  selected={selectedDates}
-                  allowRange
-                  disableDatesAfter={today}
-                />
-              </Card>
-            </StickyLayoutSection>
+        {isLoading
+          ? (
             <Layout.Section>
-              {nasaImages.map((img, id) =>
-                <ImageCard
-                  key={id}
-                  id={id}
-                  title={img.title}
-                  date={img.date}
-                  img={img.media_type !== 'video' ? img.hdurl : img.thumbnail_url}
-                  explanation={img.explanation}
-                />
-              )}
+              <EmptyState
+              >
+                <Stack vertical spacing='extraLoose'>
+                  <DisplayText size='medium'>Loading images from NASA</DisplayText>
+                  <Spinner size='large'></Spinner>
+                  <p>Sit tight while we assess</p>
+                </Stack>
+              </EmptyState>
             </Layout.Section>
-          </>
-        )
+            // eslint-disable-next-line indent
+          )
+          : (
+            <>
+              <StickyLayoutSection>
+                <Card sectioned subdued>
+                  <DatePicker
+                    month={month}
+                    year={year}
+                    onChange={setSelectedDates}
+                    onMonthChange={handleMonthChange}
+                    selected={selectedDates}
+                    allowRange
+                    disableDatesAfter={today}
+                  />
+                </Card>
+              </StickyLayoutSection>
+              <Layout.Section>
+                {nasaImages.map((img, id) =>
+                  <ImageCard
+                    key={id}
+                    id={id}
+                    title={img.title}
+                    date={img.date}
+                    img={img.media_type !== 'video' ? img.hdurl : img.thumbnail_url}
+                    explanation={img.explanation}
+                  />
+                )}
+              </Layout.Section>
+            </>
+            // eslint-disable-next-line indent
+          )
         }
       </Layout>
     </Page>
-  );
+  )
 }
 
 export default App
