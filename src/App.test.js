@@ -1,9 +1,14 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
 import App from './App'
+import { mount } from 'enzyme'
+import { PolarisTestProvider } from '@shopify/polaris'
 
-test('renders learn react link', () => {
-  render(<App />)
-  const linkElement = screen.getByText(/learn react/i)
-  expect(linkElement).toBeInTheDocument()
+describe('App', () => {
+  it('App renders', () => {
+    const app = mount(
+      <PolarisTestProvider>
+        <App />
+      </PolarisTestProvider>)
+    expect(app.find(App)).toHaveLength(1)
+  })
 })
