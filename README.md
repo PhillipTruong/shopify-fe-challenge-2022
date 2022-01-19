@@ -103,7 +103,7 @@ If I were to refactor the project somethings I would change are:
 
 ## Useful Resources
 
-I ended up using a undocumented Sticky component from Polaris; these two threads really helped:
+I ended up using an undocumented Sticky component from Polaris; these two threads really helped:
 
 - https://github.com/Shopify/polaris-react/issues/2050
 - https://github.com/Shopify/polaris-react/issues/2149
