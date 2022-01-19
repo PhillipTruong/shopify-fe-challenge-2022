@@ -112,4 +112,4 @@ For testing between React, Polaris, Jest and Enzyme:
 - (https://github.com/Shopify/polaris-react/blob/main/documentation/guides/migrating-from-v3-to-v4.md#polaris-testing)
 
 Quick intro to Aria labels and why they are important:
-[![Intro to ARIA -- A11ycasts #13](https://i.ytimg.com/vi/g9Qff0b-lHk/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBtFdI0aiu93d1uUUF8S4XGo5DRCw)](https://www.youtube.com/watch?v=g9Qff0b-lHk)
+[![Intro to ARIA -- A11ycasts #13](https://img.youtube.com/vi/g9Qff0b-lHk/0.jpg)](https://www.youtube.com/watch?v=g9Qff0b-lHk)
