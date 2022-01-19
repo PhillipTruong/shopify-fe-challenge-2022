@@ -12,6 +12,7 @@ Live deployed project can be found [here](https://phillipspacetagram.netlify.app
   - [Installation](#installation)
   - [Technology & Libraries](#technology---libraries)
   - [Other Notes](#other-notes)
+  - [Useful Resources](#useful-resources)
 
 ## Functionality
 
@@ -97,3 +98,18 @@ If I were to refactor the project somethings I would change are:
 - Pulling out and refactoring components to be more reusable and robust
 - Tackle image responsiveness and performance of overall app
 - Add more unit and integration tests
+
+## Useful Resources
+
+I ended up using a undocumented Sticky component from Polaris, these two threads really helped:
+
+- (https://github.com/Shopify/polaris-react/issues/2050)
+- (https://github.com/Shopify/polaris-react/issues/2149)
+
+For testing between React, Polaris, Jest and Enzyme:
+
+- (https://github.com/Shopify/polaris-react/issues/396)
+- (https://github.com/Shopify/polaris-react/blob/main/documentation/guides/migrating-from-v3-to-v4.md#polaris-testing)
+
+Quick intro to Aria labels and why they are important:
+[![Intro to ARIA -- A11ycasts #13](https://i.ytimg.com/vi/g9Qff0b-lHk/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBtFdI0aiu93d1uUUF8S4XGo5DRCw)](https://www.youtube.com/watch?v=g9Qff0b-lHk)
