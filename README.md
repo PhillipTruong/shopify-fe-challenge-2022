@@ -1,70 +1,99 @@
-# Getting Started with Create React App
+# Spacestagram - Shopify Front End Developer Intern Challenge - Summer 2022
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Spacestagram is a simple webpage that pulls/showcases Astronomy Picture of the Day (APOD) from 
+[NASA's APIs](https://api.nasa.gov/). It is mainly built using React and Shopify's design system Polaris. 
+This project was built for Shopify's front end developer intern challenge - Summer 2022. 
 
-## Available Scripts
+The challenge specifications can be found [here](https://docs.google.com/document/d/13zXpyrC2yGxoLXKktxw2VJG2Jw8SdUfliLM-bYQLjqE/edit#heading=h.6kafoyko4s5j). 
 
-In the project directory, you can run:
+Live deployed project can be found [here](https://phillipspacetagram.netlify.app/).
+## Table of Contents
+  - [Functionality](#functionality)
+  - [Installation](#installation)
+  - [Technology & Libraries](#technology---libraries)
+  - [Other Notes](#other-notes)
 
-### `npm start`
+## Functionality
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Spacestagram automatically pulls the APODs from the last seven days.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Users can:
 
-### `npm test`
+- View APODs title, image, date, and explanation
+- Specify which date range to view APODs from using the date picker
+- Like and unlike images (non-persistent)
+- Enjoy an easter egg loading screen while waiting for the API call
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Spacestagram is desktop/mobile responsive thanks to Polaris!
 
-### `npm run build`
+Spacestagram also tries its best to be accessible and semantic. It achieves a 92 Accessibility score from Google Lighthouse.
+- This is done through using correct HTML elements for their intended purpose (thanks again Polaris) and appropriate aria labels
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Installation
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+To run this project locally, your own NASA API key and a copy of this repo is needed.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+To get your own NASA API key please go to this [link](https://api.nasa.gov/#:~:text=Browse%20APIs-,Generate%20API%20Key,-Sign%20up%20for) and sign up.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- You do not need to enter anything more than your first name, last name, and email address (Application URL not needed).
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+please clone the repo using `git clone`
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Navigate to the project directory. On Mac use `cd SHOPIFY-FE-CHALLENGE-2022`
 
-## Learn More
+Install the frontend dependencies:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+npm install
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Create a `.env` file in the root directory of the project.
 
-### Code Splitting
+Inside the `.env` file add the following:
+```
+REACT_APP_NASA_API_KEY={YOUR NASA API KEY}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+replacing the curly brackets and its content (`{YOUR NASA API KEY}`) with your NASA API key
 
-### Analyzing the Bundle Size
+Run the project:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```
+npm start
+```
 
-### Making a Progressive Web App
+These above steps runs the project in development mode.   
+Open http://localhost:3000 to view it in your browser.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+To run the tests use:
 
-### Advanced Configuration
+```
+npm test
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Technology & Libraries
 
-### Deployment
+- **ReactJS**: Base project was created using [Create-React-App](https://reactjs.org/docs/create-a-new-react-app.html#create-react-app)
+- **Polaris**: Main component/design system
+- **Styled-Components**: Used in places where Polaris couldn't be customized (Like button & APOD Image Card)
+- **React Icons**: Like button icon
+- **Axios**: HTTP requests to NASA API
+- **ESLint**: Project linter (standard React project linter)
+- **Jest**: JS Testing
+- **Enzyme**: React component output testing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Other Notes
 
-### `npm run build` fails to minify
+I decided to use Polaris as a challenge to learn the design system from Shopify. I quickly realized that it isn't 
+supposed to be used for any use case, and is specifically for building consistent merchant pages on Shopify's platform. 
+That being said this challenge helped me better understand the component library and I have to say it was a lot of fun.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+I learned a lot through looking at the implementation of the components, which props were required, and the overall 
+design structure of the Polaris components. 
+
+If I were to refactor the project somethings I would change are:
+- Pulling out and refactoring components to be more reusable and robust
+- Tackle image responsiveness and performance of overall app
+- Add more unit and integration tests
