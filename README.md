@@ -57,7 +57,7 @@ Inside the `.env` file add the following:
 REACT_APP_NASA_API_KEY={YOUR NASA API KEY}
 ```
 
-replacing the curly brackets and its content (`{YOUR NASA API KEY}`) with your NASA API key
+replacing the curly brackets and its content, `{YOUR NASA API KEY}`, with your NASA API key
 
 Run the project:
 
